@@ -1,0 +1,17 @@
+# This is a config for E2B sandbox template.
+# You can use template ID (odcjl8x8aul3xm7pj0z7) or template name (ai-saas-builder-by-essam-test-template-2) to create a sandbox:
+
+# Python SDK
+# from e2b import Sandbox, AsyncSandbox
+# sandbox = Sandbox("ai-saas-builder-by-essam-test-template-2") # Sync sandbox
+# sandbox = await AsyncSandbox.create("ai-saas-builder-by-essam-test-template-2") # Async sandbox
+
+# JS SDK
+# import { Sandbox } from 'e2b'
+# const sandbox = await Sandbox.create('ai-saas-builder-by-essam-test-template-2')
+
+team_id = "c1500d37-5ac4-461d-b6db-d626ee886a42"
+start_cmd = "/compile_page.sh"
+dockerfile = "e2b.Dockerfile"
+template_name = "ai-saas-builder-by-essam-test-template-2"
+template_id = "odcjl8x8aul3xm7pj0z7"
