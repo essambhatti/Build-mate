@@ -14,6 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { PROJECT_TEMPLATES } from "../../contants";
+import { useClerk } from "@clerk/nextjs";
 
 const FormSchema = z.object({
   value: z.string().min(1, "Value is required").max(10000, "Value is too long"),
@@ -24,6 +25,7 @@ const ProjectForm = () => {
   const [isFocused, setIsFocused] = useState(false);
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+  const clerk = useClerk();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -39,6 +41,9 @@ const ProjectForm = () => {
       },
       onError: (error) => {
         toast.error(error.message);
+        if (error.data?.code === "UNAUTHORIZED") {
+          clerk.openSignIn();
+        }
       },
     })
   );
@@ -48,13 +53,13 @@ const ProjectForm = () => {
   const isPending = createProject.isPending;
   const isDisabled = isPending || !form.formState.isValid;
 
-  const onSelect = (value : string) => {
-    form.setValue("value", value,{
-      shouldDirty : true,
-      shouldValidate : true,
-      shouldTouch  : true,
-    })
-  }
+  const onSelect = (value: string) => {
+    form.setValue("value", value, {
+      shouldDirty: true,
+      shouldValidate: true,
+      shouldTouch: true,
+    });
+  };
   return (
     <Form {...form}>
       <section className="space-y-6">

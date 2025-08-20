@@ -1,3 +1,4 @@
+import Navbar from "@/modules/home/ui/components/nav-bar";
 import React from "react";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <main className="flex flex-col min-h-screen max-h-screen">
+      <Navbar />
   <div className="absolute inset-0 -z-10 h-full w-full 
     bg-background 
     dark:[background-image:radial-gradient(#393e4a_1px,transparent_1px)] 
