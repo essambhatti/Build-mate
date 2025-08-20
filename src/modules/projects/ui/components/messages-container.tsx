@@ -23,12 +23,15 @@ const MessagesContainer = ({
     trpc.messages.getMany.queryOptions({ projectId },{refetchInterval : 5000})
   );
 
+  const lastAssistantMessageRef = useRef<string | null>(null)
+
   useEffect(() => {
     const lastAssistantMessage = messages.findLast(
       (message) => message.role === "ASSISTANT"
     );
-    if (lastAssistantMessage && lastAssistantMessage.fragment) {
+    if (lastAssistantMessage?.fragment && lastAssistantMessage.id !== lastAssistantMessageRef.current) {
       setActiveFragment(lastAssistantMessage.fragment);
+      lastAssistantMessageRef.current = lastAssistantMessage.id
     }
   }, [messages, setActiveFragment]);
 
