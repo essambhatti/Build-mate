@@ -11,6 +11,7 @@ interface Props {
 
 const Usage = ({ points, expiresAt }: Props) => {
   const { has } = useAuth()
+  if (!has) return null
   const hasProAccess  = has({plan : "pro"})
   const resetDate = new Date(expiresAt);
 

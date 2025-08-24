@@ -8,7 +8,7 @@ import {
 import { Button } from "./ui/button";
 import { Check,  CopyIcon } from "lucide-react";
 import CodeView from "./code-view";
-import { TreeView } from "./tree-view";
+import { TreeNode, TreeView } from "./tree-view";
 import { Breadcrumb } from "./bread-crumb";
 
 type FileCollection = { [path: string]: string };

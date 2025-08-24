@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Fragment, MessageRole, MessageType } from "@/generated/prisma";
 import { cn } from "@/lib/utils";
-import { formart, format } from "date-fns";
+import {  format } from "date-fns";
 import { ChevronRightIcon, Code2Icon } from "lucide-react";
 import Image from "next/image";
 
@@ -40,6 +40,10 @@ const FragmentCard = ({
   isActiveFragment,
   onFragmentClick,
 }: FragmentProps) => {
+
+   if (!fragment) {
+    return null;
+  }
   return (
     <button
       className={cn(

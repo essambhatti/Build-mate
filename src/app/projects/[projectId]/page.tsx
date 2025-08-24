@@ -4,12 +4,12 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-interface Props {
-  params: { projectId: string };
-}
+type Props = {
+  params: Promise<{ projectId: string }>;
+};
 
 const Page = async ({ params }: Props) => {
-  const { projectId } = params;
+  const { projectId } = await  params;
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(
     trpc.messages.getMany.queryOptions({ projectId })
@@ -17,6 +17,7 @@ const Page = async ({ params }: Props) => {
   void queryClient.prefetchQuery(
     trpc.projects.getOne.queryOptions({ id: projectId })
   );
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ErrorBoundary fallback={<p>Error</p>}>
@@ -29,3 +30,4 @@ const Page = async ({ params }: Props) => {
 };
 
 export default Page;
+

@@ -25,6 +25,9 @@ interface Props {
 
 export const ProjectView = ({ projectId }: Props) => {
   const { has } = useAuth();
+  if (!has) {
+    return null
+  }
   const hasProAccess = has({ plan: "pro" });
   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
   const [tabState, setTabState] = useState<"preview" | "code">("preview");
