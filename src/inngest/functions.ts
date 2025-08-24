@@ -27,6 +27,7 @@ export const codeAgentFunction = inngest.createFunction(
       const sandbox = await Sandbox.create(
         "ai-saas-builder-by-essam-test-template-2"
       );
+      // await sandbox.setTimeout(1_800_000);
       return sandbox.sandboxId;
     });
 
@@ -40,8 +41,9 @@ export const codeAgentFunction = inngest.createFunction(
             projectId: event.data.projectId,
           },
           orderBy: {
-            createdAt: "asc",
+            createdAt: "desc",
           },
+          take: 10,
         });
 
         for (const message of messages) {
@@ -52,7 +54,7 @@ export const codeAgentFunction = inngest.createFunction(
           });
         }
 
-        return formattedMessages;
+        return formattedMessages.reverse();
       }
     );
     console.log(
@@ -211,7 +213,7 @@ export const codeAgentFunction = inngest.createFunction(
       name  : "response-generater",
       description : "A response generator",
       system : RESPONSE_PROMPT,
-      model : openai({model : "gpt-4o"})
+      model : openai({model :"gpt-4o-mini" })
     })
 
     const {output : fragmentTitle } = await fragmentTitleGenerater.run(result.state.data.summary);

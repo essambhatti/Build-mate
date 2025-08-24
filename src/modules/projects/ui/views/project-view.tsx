@@ -17,14 +17,15 @@ import Link from "next/link";
 import FileExplorer from "@/components/file-explorer";
 import UserControl from "@/components/user-controller";
 import { useAuth } from "@clerk/nextjs";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface Props {
   projectId: string;
 }
 
 export const ProjectView = ({ projectId }: Props) => {
-  const {has} = useAuth()
-  const hasProAccess = has({plan : "pro"})
+  const { has } = useAuth();
+  const hasProAccess = has({ plan: "pro" });
   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
   const [tabState, setTabState] = useState<"preview" | "code">("preview");
 
@@ -36,18 +37,22 @@ export const ProjectView = ({ projectId }: Props) => {
           minSize={20}
           className="flex flex-col min-h-0 ml-2"
         >
-          <Suspense fallback={<p>Loading Project...</p>}>
-            <ProjectHeader projectId={projectId} />
-          </Suspense>
-          <Suspense fallback={<p>Loading Messages...</p>}>
-            <MessagesContainer
-              projectId={projectId}
-              activeFragment={activeFragment}
-              setActiveFragment={setActiveFragment}
-            />
-          </Suspense>
+          <ErrorBoundary fallback={<p>Error in loading Project</p>}>
+            <Suspense fallback={<p>Loading Project...</p>}>
+              <ProjectHeader projectId={projectId} />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<p>Error in loading Messages</p>}>
+            <Suspense fallback={<p>Loading Messages...</p>}>
+              <MessagesContainer
+                projectId={projectId}
+                activeFragment={activeFragment}
+                setActiveFragment={setActiveFragment}
+              />
+            </Suspense>
+          </ErrorBoundary>
         </ResizablePanel>
-        <ResizableHandle className ="hover:bg-primary transition-colors" />
+        <ResizableHandle className="hover:bg-primary transition-colors" />
         <ResizablePanel defaultSize={65} minSize={50}>
           <Tabs
             className="h-full gap-y-0"
@@ -67,19 +72,20 @@ export const ProjectView = ({ projectId }: Props) => {
                 </TabsTrigger>
               </TabsList>
               <div className="ml-auto flex items-center gap-x-2">
-                {!hasProAccess &&
-                <Button className="ml-auto flex items-center gap-x-2">
-                  <Link href="/pricing" className="flex gap-2 items-center">
-                    <CrownIcon /> <p>Upgrade</p>
-                  </Link>
-                </Button>}
+                {!hasProAccess && (
+                  <Button className="ml-auto flex items-center gap-x-2">
+                    <Link href="/pricing" className="flex gap-2 items-center">
+                      <CrownIcon /> <p>Upgrade</p>
+                    </Link>
+                  </Button>
+                )}
                 <UserControl />
               </div>
             </div>
             <TabsContent value="preview">
               {!!activeFragment && <FragmentWeb data={activeFragment} />}
             </TabsContent>
-            <TabsContent value="code"  className="min-h-0">
+            <TabsContent value="code" className="min-h-0">
               {!!activeFragment?.files && (
                 <FileExplorer
                   files={activeFragment.files as { [path: string]: string }}
