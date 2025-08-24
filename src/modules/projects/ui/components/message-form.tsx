@@ -11,6 +11,7 @@ import { useTRPC } from "@/trpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import Usage from "./Usage";
+import { useRouter } from "next/navigation";
 
 interface Props {
   projectId: string;
@@ -21,6 +22,7 @@ const FormSchema = z.object({
 });
 
 const MessageForm = ({ projectId }: Props) => {
+  const router = useRouter()
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -36,9 +38,13 @@ const MessageForm = ({ projectId }: Props) => {
         queryClient.invalidateQueries(
           trpc.messages.getMany.queryOptions({ projectId })
         );
+        queryClient.invalidateQueries(trpc.usage.getCredits.queryOptions())
       },
       onError: (error) => {
         toast.error(error.message);
+        if (error.data?.code === "TOO_MANY_REQUESTS") {
+          router.push('/pricing')
+        }
       },
     })
   );

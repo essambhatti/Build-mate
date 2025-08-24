@@ -11,6 +11,9 @@ export async function initUserUsage(userId: string, plan: "FREE" | "PRO" = "FREE
   const now = new Date();
   const DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
   const expiresAt = new Date(now.getTime() + DURATION);
+  const { has } = await auth();
+  const hasProAccess = has({plan : "pro"})
+
 
   let usage = await prisma.usage.findUnique({ where: { userId } });
 
@@ -18,19 +21,19 @@ export async function initUserUsage(userId: string, plan: "FREE" | "PRO" = "FREE
     usage = await prisma.usage.create({
       data: {
         userId,
-        plan,
-        credits: PLAN_CREDITS[plan],
+        plan : hasProAccess ? "PRO" : "FREE",
+        credits: hasProAccess ? PLAN_CREDITS.PRO : PLAN_CREDITS.FREE,
         expiresAt,
       },
     });
   } else {
     // If user upgraded/downgraded
-    if (usage.plan !== plan) {
+    if (usage.plan !== (hasProAccess ? "PRO" : "FREE")) {
       usage = await prisma.usage.update({
         where: { userId },
         data: {
-          plan,
-          credits: PLAN_CREDITS[plan], // reset credits to plan limit
+          plan : hasProAccess ? "PRO" : "FREE",
+          credits: hasProAccess ? PLAN_CREDITS.PRO : PLAN_CREDITS.FREE,
           expiresAt,
         },
       });
@@ -40,7 +43,7 @@ export async function initUserUsage(userId: string, plan: "FREE" | "PRO" = "FREE
       usage = await prisma.usage.update({
         where: { userId },
         data: {
-          credits: PLAN_CREDITS[plan],
+          credits: hasProAccess ? PLAN_CREDITS.PRO : PLAN_CREDITS.FREE,
           expiresAt,
         },
       });

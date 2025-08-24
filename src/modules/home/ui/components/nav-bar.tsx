@@ -35,7 +35,7 @@ const Navbar = () => {
           </div>
         </SignedOut>
         <SignedIn>
-          <UserControl showName />
+          <UserControl />
         </SignedIn>
       </div>
     </nav>

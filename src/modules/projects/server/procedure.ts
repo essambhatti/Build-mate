@@ -4,9 +4,10 @@ import { protectedProcedure, createTRPCRouter } from "@/trpc/init";
 import z from "zod";
 import { generateSlug } from "random-word-slugs";
 import { TRPCError } from "@trpc/server";
+import { consumeCredits } from "@/lib/usage";
 
 export const projectsRouter = createTRPCRouter({
-  getMany: protectedProcedure.query(async ({ctx}) => {
+  getMany: protectedProcedure.query(async ({ ctx }) => {
     const projects = await prisma.project.findMany({
       where: {
         userId: ctx.auth.userId,
@@ -48,6 +49,24 @@ export const projectsRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
+      try {
+        console.log("trying to consume credits");
+        await consumeCredits();
+      } catch (error) {
+        console.log("error in consuming credits");
+        if (error instanceof Error) {
+          console.log("Error instance in consuming credits", error.message);
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: error.message,
+          });
+        }
+        console.log("Unknown error in consuming credits");
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "credits limit exceeded",
+        });
+      }
       const createdProject = await prisma.project.create({
         data: {
           userId: ctx.auth.userId,
