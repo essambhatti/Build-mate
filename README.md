@@ -1,15 +1,5 @@
 # 🚀 Zest - AI-Powered App Builder
 
-![Zest Logo](./public/logo.svg)
-
-[![Vercel Deployment](https://img.shields.io/badge/vercel-deployed-brightgreen?logo=vercel)](https://nextjs-seven-alpha-51.vercel.app/)
-[![Live Demo](https://img.shields.io/badge/demo-live-success?logo=vercel)](https://nextjs-seven-alpha-51.vercel.app/)
-[![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-blue?logo=tailwind-css)](https://tailwindcss.com/)
-[![tRPC](https://img.shields.io/badge/tRPC-11.4.4-blue?logo=trpc)](https://trpc.io/)
-[![Prisma](https://img.shields.io/badge/Prisma-6.14.0-blue?logo=prisma)](https://www.prisma.io/)
-
 > A powerful AI SaaS builder that transforms ideas into functional applications with natural language prompts. Built as an alternative to v0.dev and Lovable, featuring real-time code generation, live preview, and seamless deployment.
 
 ## ✨ Key Features
@@ -27,7 +17,6 @@
 
 🔗 **Production App**: [https://nextjs-seven-alpha-51.vercel.app/](https://nextjs-seven-alpha-51.vercel.app/)
 
-✨ **Try it now!** - No registration required to test the AI app generation
 
 🚀 **Fully Deployed** - Production-ready application running on Vercel's global edge network
 
@@ -141,30 +130,6 @@
    
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📁 Project Structure
-
-```
-zest/
-├── app/                      # Next.js App Router
-│   ├── (auth)/              # Authentication routes
-│   ├── (dashboard)/         # Main application
-│   ├── api/                 # API routes
-│   │   └── trpc/           # tRPC API handlers
-│   ├── components/          # React components
-│   │   ├── ui/             # shadcn/ui components
-│   │   └── ...             # Custom components
-│   └── globals.css         # Global styles
-├── lib/                     # Utilities and configurations
-│   ├── auth.ts             # Clerk configuration
-│   ├── db.ts               # Prisma client
-│   ├── trpc/               # tRPC setup
-│   └── utils.ts            # Helper functions
-├── prisma/                  # Database schema and migrations
-│   └── schema.prisma       # Prisma schema
-├── public/                  # Static assets
-├── types/                   # TypeScript definitions
-└── components.json          # shadcn/ui configuration
-```
 
 ## 🔧 Core Functionality
 
