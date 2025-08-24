@@ -10,7 +10,7 @@ const ShimmerMessages = () => {
     "Building your website",
     "Crafting components",
     "Optimizing layout",
-    "Adding final touched",
+    "Adding final touches",
     "Almost ready",
   ];
 

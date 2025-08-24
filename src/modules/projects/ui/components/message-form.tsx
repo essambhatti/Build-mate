@@ -8,8 +8,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import Usage from "./Usage";
 
 interface Props {
   projectId: string;
@@ -20,8 +21,6 @@ const FormSchema = z.object({
 });
 
 const MessageForm = ({ projectId }: Props) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const showUsage = false;
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -49,10 +48,30 @@ const MessageForm = ({ projectId }: Props) => {
       projectId,
     });
   };
+
+const { data, isLoading } = useQuery(trpc.usage.getCredits.queryOptions());
+
+  const [isFocused, setIsFocused] = useState(false);
+  const showUsage = true;
   const isPending = createMessage.isPending;
   const isDisabled = isPending || !form.formState.isValid;
   return (
     <Form {...form}>
+
+{isLoading ? (
+  <div className="rounded-t-xl bg-background border border-b-0 p-2.5 text-sm text-muted-foreground">
+    Loading credits...
+  </div>
+) : data ? (
+  <Usage 
+    points={data.credits} 
+    expiresAt={data.expiresAt}
+  />
+) : (
+  <div className="rounded-t-xl bg-background border border-b-0 p-2.5 text-sm text-red-500">
+    Failed to load credits
+  </div>
+)}
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(

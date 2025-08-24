@@ -43,15 +43,22 @@ CREATE TABLE "public"."Fragment" (
 
 -- CreateTable
 CREATE TABLE "public"."Usage" (
-    "key" TEXT NOT NULL,
-    "points" INTEGER NOT NULL,
-    "expire" TIMESTAMP(3),
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "plan" TEXT NOT NULL DEFAULT 'FREE',
+    "credits" INTEGER NOT NULL DEFAULT 5,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Usage_pkey" PRIMARY KEY ("key")
+    CONSTRAINT "Usage_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Fragment_messageId_key" ON "public"."Fragment"("messageId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Usage_userId_key" ON "public"."Usage"("userId");
 
 -- AddForeignKey
 ALTER TABLE "public"."Message" ADD CONSTRAINT "Message_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "public"."Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
