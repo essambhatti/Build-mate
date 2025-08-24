@@ -20,18 +20,21 @@ const MessagesContainer = ({
   const bottomRef = useRef<HTMLDivElement>(null);
   const trpc = useTRPC();
   const { data: messages } = useSuspenseQuery(
-    trpc.messages.getMany.queryOptions({ projectId },{refetchInterval : 5000})
+    trpc.messages.getMany.queryOptions({ projectId }, { refetchInterval: 5000 })
   );
 
-  const lastAssistantMessageRef = useRef<string | null>(null)
+  const lastAssistantMessageRef = useRef<string | null>(null);
 
   useEffect(() => {
     const lastAssistantMessage = messages.findLast(
       (message) => message.role === "ASSISTANT"
     );
-    if (lastAssistantMessage?.fragment && lastAssistantMessage.id !== lastAssistantMessageRef.current) {
+    if (
+      lastAssistantMessage?.fragment &&
+      lastAssistantMessage.id !== lastAssistantMessageRef.current
+    ) {
       setActiveFragment(lastAssistantMessage.fragment);
-      lastAssistantMessageRef.current = lastAssistantMessage.id
+      lastAssistantMessageRef.current = lastAssistantMessage.id;
     }
   }, [messages, setActiveFragment]);
 
@@ -39,8 +42,8 @@ const MessagesContainer = ({
     bottomRef.current?.scrollIntoView();
   }, [messages.length]);
 
-  const lastMessage = messages[messages.length - 1]
-  const islastMessageUser = lastMessage.role === "USER"
+  const lastMessage = messages[messages.length - 1];
+  const islastMessageUser = lastMessage.role === "USER";
   return (
     <div className="flex flex-col flex-1 min-h-0 ">
       <div className="flex-1 overflow-y-auto min-h-0">
