@@ -5,6 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { useCurrentTheme } from "@/hooks/use-current-theme";
 import { dark } from "@clerk/themes";
+import ProCard from "@/components/ProCard";
 
 const Page = () => {
     const currentTheme = useCurrentTheme()
@@ -24,7 +25,7 @@ const Page = () => {
         <p className="text-muted-foreground text-center text-sm-md:text-base">
             Choose the plan that fits your needs
         </p>
-        <PricingTable
+                <PricingTable
         appearance={{
             baseTheme : currentTheme === "dark" ? dark : undefined,
             elements : {
@@ -32,6 +33,8 @@ const Page = () => {
             }
         }}
         />
+        <ProCard />
+
       </section>
     </div>
   );
