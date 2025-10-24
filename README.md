@@ -79,8 +79,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/essambhatti/zest.git
-   cd zest
+   git clone https://github.com/essambhatti/Build-mate.git
+   cd build-mate
    ```
 
 2. **Install dependencies**
@@ -96,7 +96,7 @@
    Configure your environment variables:
    ```env
    # Database
-   DATABASE_URL="postgresql://username:password@localhost:5432/zest"
+   DATABASE_URL="postgresql://username:password@localhost:5432/build-mate"
    
    # Clerk Authentication
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
@@ -301,7 +301,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Essam Bhatti**
 - GitHub: [@essambhatti](https://github.com/essambhatti)
-- Demo: [Zest App](https://nextjs-seven-alpha-51.vercel.app/)
+- Demo: [Build Mate App](https://nextjs-seven-alpha-51.vercel.app/)
 
 ## 🙏 Acknowledgments
 
@@ -313,7 +313,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆚 Comparison with Alternatives
 
-| Feature | Zest | v0.dev | Lovable |
+| Feature | Build Mate | v0.dev | Lovable |
 |---------|------|--------|---------|
 | **Open Source** | ✅ | ❌ | ❌ |
 | **Self-Hosted** | ✅ | ❌ | ❌ |
