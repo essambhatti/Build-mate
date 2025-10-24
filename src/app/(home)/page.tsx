@@ -10,13 +10,13 @@ export default function Home() {
       <div className="flex flex-col items-center gap-5">
         <Image 
         src="/logo.svg"
-        alt = "Zest"
+        alt ="Build-Mate"
         width={50}
         height={50}
         className="hidden md:block"
         />
-        <h1 className="text-2xl md:text-5xl font-bold text-center">Build better with Zest</h1>
-        <p className="text-lg md-text-xl text-muted-foreground text-center">Turn ideas into apps with a single prompt</p>
+        <h1 className="text-2xl md:text-5xl font-bold text-center">Build better with Build Mate</h1>
+        <p className="text-lg md-text-xl text-muted-foreground text-center">Meet your new AI Co-Founder</p>
         <div className="max-w-3xl mx-auto w-full">
           <ProjectForm />
           </div> 

@@ -1,4 +1,4 @@
-# 🚀 Zest - AI-Powered App Builder
+# 🚀 Build Mate - AI-Powered App Builder
 
 > A powerful AI SaaS builder that transforms ideas into functional applications with natural language prompts. Built as an alternative to v0.dev and Lovable, featuring real-time code generation, live preview, and seamless deployment.
 

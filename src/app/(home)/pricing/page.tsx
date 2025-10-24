@@ -15,7 +15,7 @@ const Page = () => {
         <div className="flex flex-col items-center">
             <Image
             src="./logo.svg"
-            alt="Zest"
+            alt="Built-Mate"
             width={48}
             height={48}
             className="hidden md:block"
